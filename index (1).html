@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oliver Studer — Mobile Foot Spa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#20302A;
+    --ink-soft:#4B5B54;
+    --paper:#EEE8DA;
+    --paper-deep:#E3DCC9;
+    --panel:#FBF9F3;
+    --forest:#1B2A22;
+    --honey:#B9863E;
+    --honey-deep:#98692C;
+    --sage:#6E8B86;
+    --line: rgba(32,48,42,0.18);
+    --radius: 3px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    line-height:1.15;
+    margin:0;
+    color:var(--forest);
+  }
+  p{margin:0;}
+  a{color:inherit;}
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  /* focus visibility */
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+    outline:2px solid var(--honey-deep);
+    outline-offset:3px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* Header */
+  header.site{
+    position:sticky; top:0; z-index:20;
+    background:rgba(238,232,218,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .site-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-size:1.15rem;
+    letter-spacing:0.01em;
+    color:var(--forest);
+    text-decoration:none;
+  }
+  nav.links{
+    display:flex; gap:28px;
+  }
+  nav.links a{
+    text-decoration:none;
+    color:var(--ink-soft);
+    font-size:0.94rem;
+  }
+  nav.links a:hover{color:var(--forest);}
+  .nav-toggle{display:none;}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--forest);
+    color:var(--panel);
+    border:none;
+    padding:13px 24px;
+    font-family:'Inter',sans-serif;
+    font-size:0.95rem;
+    font-weight:500;
+    border-radius:var(--radius);
+    cursor:pointer;
+    text-decoration:none;
+  }
+  .btn:hover{background:#122019;}
+  .btn.ghost{
+    background:transparent;
+    color:var(--forest);
+    border:1px solid var(--ink);
+  }
+  .btn.ghost:hover{background:rgba(32,48,42,0.06);}
+  .btn.honey{background:var(--honey); color:#fff;}
+  .btn.honey:hover{background:var(--honey-deep);}
+  .btn:disabled{opacity:0.4; cursor:not-allowed;}
+
+  /* Hero */
+  .hero{
+    padding:96px 0 72px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:48px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-size:0.92rem;
+    color:var(--sage);
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 4.6vw, 3.6rem);
+    max-width:11ch;
+  }
+  .hero p.lede{
+    margin-top:22px;
+    font-size:1.12rem;
+    color:var(--ink-soft);
+    max-width:46ch;
+  }
+  .hero-actions{
+    margin-top:34px;
+    display:flex; gap:14px; flex-wrap:wrap;
+  }
+  .hero-art{
+    display:flex; justify-content:center;
+  }
+  .hero-art svg{width:100%; max-width:380px; height:auto;}
+
+  /* Sections */
+  section{padding:64px 0;}
+  .section-head{
+    max-width:56ch;
+    margin-bottom:42px;
+  }
+  .section-head h2{font-size:clamp(1.7rem,3vw,2.2rem);}
+  .section-head p{margin-top:14px; color:var(--ink-soft); font-size:1.02rem;}
+
+  /* Services */
+  .services{background:var(--paper-deep); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .service-list{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .service-card{
+    background:var(--panel);
+    padding:34px 28px;
+  }
+  .service-card .num{
+    font-family:'Fraunces',serif;
+    color:var(--sage);
+    font-size:0.95rem;
+    margin-bottom:16px;
+  }
+  .service-card h3{font-size:1.3rem;}
+  .service-card p{margin-top:12px; color:var(--ink-soft); font-size:0.97rem;}
+  .service-card .meta{
+    margin-top:18px;
+    font-size:0.88rem;
+    color:var(--honey-deep);
+    display:flex;
+    justify-content:space-between;
+    border-top:1px solid var(--line);
+    padding-top:14px;
+  }
+
+  /* Visits */
+  .visits{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:56px;
+    align-items:start;
+  }
+  .visits h2{font-size:clamp(1.7rem,3vw,2.2rem); max-width:14ch;}
+  .visits p.lede{margin-top:16px; color:var(--ink-soft); max-width:40ch;}
+  .steps{list-style:none; margin:0; padding:0;}
+  .steps li{
+    display:grid;
+    grid-template-columns:34px 1fr;
+    gap:16px;
+    padding:20px 0;
+    border-top:1px solid var(--line);
+  }
+  .steps li:last-child{border-bottom:1px solid var(--line);}
+  .steps .step-index{
+    font-family:'Fraunces',serif;
+    color:var(--honey-deep);
+    font-size:1.05rem;
+  }
+  .steps h4{font-family:'Inter',sans-serif; font-weight:600; font-size:1rem; color:var(--forest);}
+  .steps p{margin-top:6px; color:var(--ink-soft); font-size:0.95rem;}
+
+  /* Booking */
+  .booking{background:var(--forest); color:var(--paper);}
+  .booking .section-head h2{color:var(--paper);}
+  .booking .section-head p{color:#C7D0C9;}
+  .booking-panel{
+    background:var(--panel);
+    color:var(--ink);
+    border-radius:var(--radius);
+    padding:32px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:36px;
+  }
+  .field-group{margin-bottom:20px;}
+  .field-group label{
+    display:block;
+    font-size:0.86rem;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .field-group input, .field-group textarea, .field-group select{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    font-family:'Inter',sans-serif;
+    font-size:0.96rem;
+    background:#fff;
+    color:var(--ink);
+  }
+  .field-group textarea{resize:vertical; min-height:80px;}
+  .service-pick{display:flex; gap:10px; flex-wrap:wrap;}
+  .pill{
+    padding:9px 16px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:#fff;
+    font-size:0.88rem;
+    cursor:pointer;
+    color:var(--ink-soft);
+  }
+  .pill[aria-pressed="true"]{
+    background:var(--honey);
+    border-color:var(--honey);
+    color:#fff;
+  }
+
+  .cal-head{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .cal-head .month-label{font-family:'Fraunces',serif; font-size:1.05rem;}
+  .cal-nav{display:flex; gap:8px;}
+  .cal-nav button{
+    width:30px; height:30px;
+    border:1px solid var(--line);
+    background:#fff;
+    border-radius:var(--radius);
+    cursor:pointer;
+    font-size:0.9rem;
+  }
+  .cal-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:4px;
+  }
+  .cal-grid .dow{
+    text-align:center;
+    font-size:0.72rem;
+    color:var(--ink-soft);
+    padding-bottom:6px;
+  }
+  .cal-grid button.day{
+    aspect-ratio:1;
+    border:1px solid transparent;
+    background:transparent;
+    border-radius:var(--radius);
+    font-size:0.88rem;
+    cursor:pointer;
+    color:var(--ink);
+  }
+  .cal-grid button.day:hover:not(:disabled){background:var(--paper-deep);}
+  .cal-grid button.day:disabled{color:#C6C0B2; cursor:not-allowed;}
+  .cal-grid button.day[aria-pressed="true"]{
+    background:var(--honey);
+    color:#fff;
+  }
+  .cal-grid .empty{visibility:hidden;}
+
+  .slots{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:16px;
+  }
+  .slots button{
+    padding:9px 6px;
+    border:1px solid var(--line);
+    background:#fff;
+    border-radius:var(--radius);
+    font-size:0.85rem;
+    cursor:pointer;
+    color:var(--ink);
+  }
+  .slots button[aria-pressed="true"]{
+    background:var(--forest);
+    color:#fff;
+    border-color:var(--forest);
+  }
+  .slots button:disabled{color:#C6C0B2; cursor:not-allowed; background:var(--paper-deep);}
+
+  .summary{
+    margin-top:18px;
+    padding:14px 16px;
+    background:var(--paper-deep);
+    border-radius:var(--radius);
+    font-size:0.9rem;
+    color:var(--ink-soft);
+  }
+  .summary strong{color:var(--forest);}
+  .confirm-msg{
+    margin-top:14px;
+    font-size:0.88rem;
+    color:var(--honey-deep);
+    display:none;
+  }
+  .confirm-msg.show{display:block;}
+
+  /* Contact */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:0.8fr 1.2fr;
+    gap:56px;
+  }
+  .contact-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px;
+  }
+  .contact-card h3{font-size:1.15rem;}
+  .contact-row{
+    display:flex; justify-content:space-between;
+    padding:14px 0;
+    border-top:1px solid var(--line);
+    font-size:0.94rem;
+  }
+  .contact-row:first-of-type{border-top:none; margin-top:16px;}
+  .contact-row span:first-child{color:var(--ink-soft);}
+  .contact-row a{color:var(--forest); text-decoration:none; border-bottom:1px solid var(--honey);}
+
+  /* Goals */
+  .goals{background:var(--paper-deep); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .goals-target{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:40px;
+    flex-wrap:wrap;
+  }
+  .goals-target .figure{
+    font-family:'Fraunces',serif;
+    font-size:clamp(2.6rem,6vw,4rem);
+    color:var(--forest);
+  }
+  .goals-target .figure-label{
+    color:var(--ink-soft);
+    font-size:1rem;
+    max-width:26ch;
+  }
+  .goals-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+  }
+  .goal-row{
+    display:grid;
+    grid-template-columns:180px 1fr;
+    gap:24px;
+    padding:20px 28px;
+    border-top:1px solid var(--line);
+  }
+  .goal-row:first-child{border-top:none;}
+  .goal-row .goal-label{
+    font-size:0.86rem;
+    color:var(--honey-deep);
+    padding-top:2px;
+  }
+  .goal-row .goal-value{
+    color:var(--ink);
+    font-size:0.98rem;
+  }
+  .goal-row .goal-value span.muted{color:var(--ink-soft);}
+  @media (max-width: 640px){
+    .goal-row{grid-template-columns:1fr; gap:6px;}
+  }
+
+  form.contact-form .field-group{margin-bottom:18px;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:32px 0;
+  }
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:12px;
+  }
+  .footer-inner p{font-size:0.85rem; color:var(--ink-soft);}
+
+  @media (max-width: 860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-art{order:-1;}
+    .hero-art svg{max-width:220px;}
+    .service-list{grid-template-columns:1fr;}
+    .visits{grid-template-columns:1fr;}
+    .booking-panel{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    nav.links{display:none;}
+    .slots{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-inner wrap" style="padding-left:0;padding-right:0;">
+    <a class="brand" href="#top">Oliver Studer <span style="color:var(--honey-deep);">·</span> Mobile Foot Spa</a>
+    <nav class="links">
+      <a href="#services">Services</a>
+      <a href="#visits">House calls</a>
+      <a href="#booking">Book</a>
+      <a href="#goals">My goals</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn honey" href="#booking" style="padding:10px 18px; font-size:0.88rem;">Book a visit</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Foot massage · Pedicure · Nail painting</p>
+        <h1>Bring the spa to your own front room.</h1>
+        <p class="lede">I travel to you with everything needed for a proper foot treatment — massage, pedicure or a fresh coat of polish — so you can relax without leaving the house.</p>
+        <div class="hero-actions">
+          <a class="btn honey" href="#booking">Check available times</a>
+          <a class="btn ghost" href="#services">See services</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <svg viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Line illustration of a foot with pressure points">
+          <path d="M150 40c-28 0-40 26-40 54 0 20 8 34 8 52 0 30-34 44-34 96 0 70 30 118 66 118s70-32 70-96c0-40-14-58-14-96 0-24 10-36 10-64 0-42-26-64-66-64z" stroke="#B9863E" stroke-width="2.5" fill="none"/>
+          <circle cx="150" cy="80" r="4" fill="#6E8B86"/>
+          <circle cx="130" cy="120" r="4" fill="#6E8B86"/>
+          <circle cx="172" cy="120" r="4" fill="#6E8B86"/>
+          <circle cx="150" cy="170" r="4" fill="#6E8B86"/>
+          <circle cx="122" cy="220" r="4" fill="#6E8B86"/>
+          <circle cx="178" cy="220" r="4" fill="#6E8B86"/>
+          <circle cx="150" cy="280" r="4" fill="#6E8B86"/>
+          <circle cx="150" cy="330" r="4" fill="#6E8B86"/>
+          <path d="M150 80 Q160 100 172 120" stroke="#20302A" stroke-width="1" stroke-dasharray="2 4" opacity="0.4"/>
+          <path d="M150 80 Q140 100 130 120" stroke="#20302A" stroke-width="1" stroke-dasharray="2 4" opacity="0.4"/>
+          <path d="M150 170 Q135 195 122 220" stroke="#20302A" stroke-width="1" stroke-dasharray="2 4" opacity="0.4"/>
+          <path d="M150 170 Q165 195 178 220" stroke="#20302A" stroke-width="1" stroke-dasharray="2 4" opacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Three ways to treat your feet</h2>
+        <p>Each service is booked on its own or combined in one visit — just note it in your booking request.</p>
+      </div>
+      <div class="service-list">
+        <div class="service-card">
+          <div class="num">01</div>
+          <h3>Foot massage</h3>
+          <p>A slow, firm-pressure massage through the foot, ankle and calf, using warm oil to ease tension after a long day or a long week.</p>
+          <div class="meta"><span>45 min</span><span>Most booked</span></div>
+        </div>
+        <div class="service-card">
+          <div class="num">02</div>
+          <h3>Pedicure</h3>
+          <p>Nail trimming and shaping, cuticle care, callus smoothing and a warm soak, finished with a moisturising foot massage.</p>
+          <div class="meta"><span>60 min</span><span>Includes soak</span></div>
+        </div>
+        <div class="service-card">
+          <div class="num">03</div>
+          <h3>Nail painting</h3>
+          <p>Polish applied in the colour of your choice. Booked alone or added to any pedicure for a finished look.</p>
+          <div class="meta"><span>20 min</span><span>Add-on friendly</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="visits">
+    <div class="wrap visits">
+      <div>
+        <h2>All visits are house calls</h2>
+        <p class="lede">There's no studio to travel to. I bring a portable chair, towels, oils and tools, and set up wherever is comfortable for you.</p>
+      </div>
+      <ul class="steps">
+        <li>
+          <span class="step-index">1</span>
+          <div>
+            <h4>You pick a service and time</h4>
+            <p>Use the calendar below, or get in touch directly if you'd rather arrange something by email.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-index">2</span>
+          <div>
+            <h4>I arrive with everything set up needs</h4>
+            <p>All equipment travels with me — just a chair and a bit of floor space is enough.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-index">3</span>
+          <div>
+            <h4>You relax through the treatment</h4>
+            <p>Sit back while the service runs its full time, whether that's a massage, a pedicure or both.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-index">4</span>
+          <div>
+            <h4>Payment and next booking</h4>
+            <p>Settle up at the end of the visit, and book your next appointment on the spot if you'd like.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="booking" id="booking">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Book your visit</h2>
+        <p>Choose a service, a date and a time. Submitting opens a prepared email to confirm the request.</p>
+      </div>
+
+      <div class="booking-panel">
+        <div>
+          <div class="field-group">
+            <label>Service</label>
+            <div class="service-pick" id="servicePick">
+              <button type="button" class="pill" data-service="Foot massage" aria-pressed="false">Foot massage</button>
+              <button type="button" class="pill" data-service="Pedicure" aria-pressed="false">Pedicure</button>
+              <button type="button" class="pill" data-service="Nail painting" aria-pressed="false">Nail painting</button>
+            </div>
+          </div>
+
+          <div class="cal-head">
+            <button type="button" id="prevMonth" aria-label="Previous month">‹</button>
+            <span class="month-label" id="monthLabel"></span>
+            <div class="cal-nav">
+              <button type="button" id="nextMonth" aria-label="Next month">›</button>
+            </div>
+          </div>
+          <div class="cal-grid" id="calGrid" role="grid" aria-label="Choose a date"></div>
+
+          <div class="field-group" style="margin-top:20px;">
+            <label>Available times</label>
+            <div class="slots" id="slotGrid"></div>
+          </div>
+        </div>
+
+        <div>
+          <form id="bookingForm">
+            <div class="field-group">
+              <label for="bName">Your name</label>
+              <input id="bName" name="name" type="text" required>
+            </div>
+            <div class="field-group">
+              <label for="bEmail">Email address</label>
+              <input id="bEmail" name="email" type="email" required>
+            </div>
+            <div class="field-group">
+              <label for="bAddress">Visit address</label>
+              <input id="bAddress" name="address" type="text" placeholder="Where should I come to?" required>
+            </div>
+            <div class="field-group">
+              <label for="bNotes">Notes (optional)</label>
+              <textarea id="bNotes" name="notes" placeholder="Anything I should know before the visit"></textarea>
+            </div>
+
+            <div class="summary" id="bookingSummary">
+              Pick a service, date and time to see your booking summary here.
+            </div>
+
+            <button class="btn honey" type="submit" style="margin-top:18px; width:100%; justify-content:center;">Send booking request</button>
+            <p class="confirm-msg" id="confirmMsg">Your email app should now be open with the request filled in — send it to confirm your booking.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="goals" id="goals">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>My goals</h2>
+        <p>The plan behind Olis Foot Massage, kept in view.</p>
+      </div>
+
+      <div class="goals-target">
+        <span class="figure">CHF 300</span>
+        <span class="figure-label">profit target, every week</span>
+      </div>
+
+      <div class="goals-card">
+        <div class="goal-row">
+          <span class="goal-label">Business name</span>
+          <span class="goal-value">Olis Foot Massage</span>
+        </div>
+        <div class="goal-row">
+          <span class="goal-label">Method</span>
+          <span class="goal-value">Foot massage, pedicure and nail painting, delivered as house calls</span>
+        </div>
+        <div class="goal-row">
+          <span class="goal-label">Target customer</span>
+          <span class="goal-value">Elderly people who'd rather stay at home than travel to a salon</span>
+        </div>
+        <div class="goal-row">
+          <span class="goal-label">Resources</span>
+          <span class="goal-value">CHF 500 to start — massage oil, manicure supplies, <span class="muted">plus my dad's car and my bicycle to get to appointments</span></span>
+        </div>
+        <div class="goal-row">
+          <span class="goal-label">Marketing</span>
+          <span class="goal-value">This website, Instagram, and word of mouth</span>
+        </div>
+        <div class="goal-row">
+          <span class="goal-label">Costs</span>
+          <span class="goal-value">Massage oil, nail polish and other supplies that need restocking</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <div class="section-head" style="margin-bottom:24px;">
+          <h2>Get in touch</h2>
+          <p>Questions about a service, or want to arrange a visit directly? Reach out any time.</p>
+        </div>
+        <div class="contact-card">
+          <h3>Oliver Studer</h3>
+          <div class="contact-row">
+            <span>Email</span>
+            <a href="mailto:Oliver@studer.website">Oliver@studer.website</a>
+          </div>
+          <div class="contact-row">
+            <span>Service</span>
+            <span>House calls only</span>
+          </div>
+          <div class="contact-row">
+            <span>Hours</span>
+            <span>Mon–Sat, 9:00–17:00</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <form class="contact-form" id="contactForm">
+          <div class="field-group">
+            <label for="cName">Name</label>
+            <input id="cName" type="text" required>
+          </div>
+          <div class="field-group">
+            <label for="cEmail">Email address</label>
+            <input id="cEmail" type="email" required>
+          </div>
+          <div class="field-group">
+            <label for="cMessage">Message</label>
+            <textarea id="cMessage" required placeholder="What would you like to ask?"></textarea>
+          </div>
+          <button class="btn ghost" type="submit">Send message</button>
+          <p class="confirm-msg" id="contactConfirm">Your email app should now be open — send it to reach Oliver directly.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <p>© <span id="year"></span> Oliver Studer — Mobile Foot Spa</p>
+    <p>Oliver@studer.website</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- Service picker ----
+  let selectedService = null;
+  const serviceButtons = document.querySelectorAll('#servicePick .pill');
+  serviceButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      serviceButtons.forEach(b => b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+      selectedService = btn.dataset.service;
+      updateSummary();
+    });
+  });
+
+  // ---- Calendar ----
+  const monthLabel = document.getElementById('monthLabel');
+  const calGrid = document.getElementById('calGrid');
+  const slotGrid = document.getElementById('slotGrid');
+  const dowNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  let viewYear = today.getFullYear();
+  let viewMonth = today.getMonth();
+  let selectedDate = null;
+  let selectedSlot = null;
+
+  const monthFmt = new Intl.DateTimeFormat('en-GB', { month:'long', year:'numeric' });
+
+  function renderCalendar(){
+    calGrid.innerHTML = '';
+    dowNames.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'dow';
+      el.textContent = d;
+      calGrid.appendChild(el);
+    });
+
+    const firstOfMonth = new Date(viewYear, viewMonth, 1);
+    let startOffset = firstOfMonth.getDay() - 1;
+    if (startOffset < 0) startOffset = 6;
+
+    for (let i = 0; i < startOffset; i++){
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      calGrid.appendChild(empty);
+    }
+
+    const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+    for (let d = 1; d <= daysInMonth; d++){
+      const dateObj = new Date(viewYear, viewMonth, d);
+      const btn = document.createElement('button');
+      btn.className = 'day';
+      btn.type = 'button';
+      btn.textContent = d;
+      btn.setAttribute('aria-pressed','false');
+
+      const isPast = dateObj < today;
+      const isSunday = dateObj.getDay() === 0;
+      if (isPast || isSunday){
+        btn.disabled = true;
+      } else {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#calGrid .day').forEach(b => b.setAttribute('aria-pressed','false'));
+          btn.setAttribute('aria-pressed','true');
+          selectedDate = dateObj;
+          selectedSlot = null;
+          renderSlots();
+          updateSummary();
+        });
+      }
+      calGrid.appendChild(btn);
+    }
+
+    monthLabel.textContent = monthFmt.format(firstOfMonth);
+  }
+
+  function renderSlots(){
+    slotGrid.innerHTML = '';
+    if (!selectedDate){
+      return;
+    }
+    const hours = [9,10,11,12,13,14,15,16,17];
+    const now = new Date();
+    hours.forEach(h => {
+      const slotTime = new Date(selectedDate);
+      slotTime.setHours(h,0,0,0);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      const label = (h % 12 === 0 ? 12 : h % 12) + ':00 ' + (h < 12 ? 'AM' : 'PM');
+      btn.textContent = label;
+      btn.setAttribute('aria-pressed','false');
+
+      const isToday = selectedDate.toDateString() === now.toDateString();
+      if (isToday && slotTime < now){
+        btn.disabled = true;
+      } else {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#slotGrid button').forEach(b => b.setAttribute('aria-pressed','false'));
+          btn.setAttribute('aria-pressed','true');
+          selectedSlot = label;
+          updateSummary();
+        });
+      }
+      slotGrid.appendChild(btn);
+    });
+  }
+
+  document.getElementById('prevMonth').addEventListener('click', () => {
+    viewMonth -= 1;
+    if (viewMonth < 0){ viewMonth = 11; viewYear -= 1; }
+    renderCalendar();
+  });
+  document.getElementById('nextMonth').addEventListener('click', () => {
+    viewMonth += 1;
+    if (viewMonth > 11){ viewMonth = 0; viewYear += 1; }
+    renderCalendar();
+  });
+
+  const dateFmt = new Intl.DateTimeFormat('en-GB', { weekday:'long', day:'numeric', month:'long' });
+
+  function updateSummary(){
+    const summary = document.getElementById('bookingSummary');
+    if (!selectedService && !selectedDate && !selectedSlot){
+      summary.textContent = 'Pick a service, date and time to see your booking summary here.';
+      return;
+    }
+    const parts = [];
+    parts.push('Service: ' + (selectedService || '—'));
+    parts.push('Date: ' + (selectedDate ? dateFmt.format(selectedDate) : '—'));
+    parts.push('Time: ' + (selectedSlot || '—'));
+    summary.innerHTML = parts.map(p => '<strong>' + p.split(':')[0] + ':</strong>' + p.split(':').slice(1).join(':')).join('<br>');
+  }
+
+  renderCalendar();
+  updateSummary();
+
+  // ---- Booking form submit ----
+  document.getElementById('bookingForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('bName').value.trim();
+    const email = document.getElementById('bEmail').value.trim();
+    const address = document.getElementById('bAddress').value.trim();
+    const notes = document.getElementById('bNotes').value.trim();
+
+    if (!selectedService || !selectedDate || !selectedSlot){
+      alert('Please choose a service, a date and a time before sending your request.');
+      return;
+    }
+    if (!name || !email || !address){
+      return;
+    }
+
+    const subject = 'Booking request — ' + selectedService + ' on ' + dateFmt.format(selectedDate);
+    const body =
+      'Name: ' + name + '\n' +
+      'Email: ' + email + '\n' +
+      'Visit address: ' + address + '\n' +
+      'Service: ' + selectedService + '\n' +
+      'Date: ' + dateFmt.format(selectedDate) + '\n' +
+      'Time: ' + selectedSlot + '\n' +
+      (notes ? ('Notes: ' + notes + '\n') : '');
+
+    const mailto = 'mailto:Oliver@studer.website?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    window.location.href = mailto;
+
+    document.getElementById('confirmMsg').classList.add('show');
+  });
+
+  // ---- Contact form submit ----
+  document.getElementById('contactForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('cName').value.trim();
+    const email = document.getElementById('cEmail').value.trim();
+    const message = document.getElementById('cMessage').value.trim();
+    if (!name || !email || !message) return;
+
+    const subject = 'Message from ' + name;
+    const body = 'From: ' + name + ' (' + email + ')\n\n' + message;
+    const mailto = 'mailto:Oliver@studer.website?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    window.location.href = mailto;
+
+    document.getElementById('contactConfirm').classList.add('show');
+  });
+</script>
+
+</body>
+</html>
